@@ -1,0 +1,85 @@
+button.sc-cart-btn:after {
+    content: none;
+}
+
+.mat-badge-cart > span {
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    font-size: 10px;
+    background: blue;
+
+    right: -6px;
+    top: -6px;
+}
+
+.shopping-cart {
+    margin-top: 30px;
+}
+
+.product-title {
+    font-size: 0.8em;
+}
+
+@media only screen and (max-width: 1280px) {
+
+    #header.sticky-header.clone-fixed {
+        display: block !important;
+    }
+}
+
+header#header {
+    background-color: rgba(255, 255, 255, 0.85);
+}
+
+.loading-shade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0px;
+    right: 0;
+    /*background: rgba(0, 0, 0, 0.15);*/
+    background: white;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mat-progress-spinner::ng-deep circle, .mat-spinner::ng-deep circle {
+    stroke: #0001ff !important;
+}
+
+.rest-bg {
+    z-index: 99;
+    width: 100%;
+    /*background: red; */
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 300px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.owl-img {
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 300px;
+}
+
+.slide-box {
+    position: relative;
+}
+
+.center-title {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    z-index: 99;
+}

@@ -1,0 +1,8 @@
+{
+  "/w/*": {
+    "target": "https://vi.wikipedia.org",
+    "secure": true,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}

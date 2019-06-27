@@ -1,0 +1,40 @@
+<!-- Products -->
+<div class="products-holder item-col-{{ (plans.length >= 4 )? '4' : '3' }}">
+    <!-- Product -->
+    <ng-container *ngFor="let plan of plans; let i = index">
+        <div class="product-col" *ngIf="i < 4">
+            <div class="product">
+                <div class="label-wrap">
+                    <!--<div class="label-sale">Sale</div>-->
+                </div> <!-- - - - - - - - - - - - - - Product Image - - - - - - - - - - - - - - - - -->
+                <figure class="product-image">
+                    <a href="javascript:void(0)" [routerLink]="['/tours', plan.url + '-' +  plan.id]">
+                        <img class="mx-auto d-block" style="width: auto" [lazyLoad]="plan.tour?.imageUrl"
+                             [defaultImage]="defaultImage" [alt]="plan?.name"></a>
+                    <!--<a href="/tours/{{ plan.url }}-{{ plan.id }}" class="btn btn-style-3">Add To Cart</a>-->
+                </figure>
+                <!-- - - - - - - - - - - - - - End of Product Image - - - - - - - - - - - - - - - - -->
+                <!-- - - - - - - - - - - - - - Product Description - - - - - - - - - - - - - - - - -->
+                <div class="product-description">
+                    <h5 class="product-name">
+                        <a href="javascript:void(0)" [routerLink]="['/tours', plan.url + '-' +  plan.id]">
+                            {{ plan?.name}}</a>
+                    </h5>
+                    <div class="pricing-area">
+                        <div class="product-price">
+                            <span style="text-decoration: none;">{{ plan.adultPrice | vcurrency }}</span>
+                        </div>
+                        <ul class="rating">
+                            <li><i class="licon-star"></i></li>
+                            <li><i class="licon-star"></i></li>
+                            <li><i class="licon-star"></i></li>
+                            <li><i class="licon-star"></i></li>
+                            <li class="empty"><i class="licon-star"></i></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- - - - - - - - - - - - - - End of Product Description - - - - - - - - - - - - - - - - -->
+            </div>
+        </div>
+    </ng-container>
+</div>

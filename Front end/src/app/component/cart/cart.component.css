@@ -1,0 +1,19 @@
+small.title {
+    display: block;
+}
+
+.action > span {
+    display: block;
+}
+
+.action > span > a {
+    color: blue;
+}
+
+.adult {
+    font-size: 1.0em;
+}
+
+.child {
+    font-size: 0.9em;
+}

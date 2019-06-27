@@ -1,0 +1,33 @@
+<aside id="sidebar" class="sidebar sbl">
+    <div class="widget">
+        <div class="entry-box with-hover style-2 label-small3 isotope"
+             data-isotope-options='{"itemSelector" : ".item", "layoutMode":"fitRows", "transitionDuration":"0.7s", "fitRows" : {"columnWidth":".item"}}'>
+            <ng-container *ngFor="let plan of plans">
+                <div class="item places-{{ plan.placeIds?.join('-') }}">
+                    <!-- Entry post -->
+                    <div class="entry">
+                        <div class="thumbnail-attachment">
+                            <a href="javascript:void(0)" [routerLink]="['/tours', plan.url + '-' +  plan.id]"
+                               class="overlink"></a>
+                            <img class="mx-auto d-block" [lazyLoad]="plan.tour?.imageUrl" [defaultImage]="defaultImage"
+                                 alt="">
+                        </div>
+                        <div class="entry-body">
+                            <a href="javascript:void(0)" [routerLink]="['/tours', plan.url + '-' +  plan.id]"
+                               class="entry-cat">
+                                {{ plan.adultPrice | vcurrency }}
+                            </a>
+                            <h6 class="entry-title">
+                                <a href="javascript:void(0)" [routerLink]="['/tours', plan.url + '-' +  plan.id]">
+                                    {{ plan.tour.name}}</a>
+                            </h6>
+                            <div class="entry-meta">
+                                <time class="entry-date" datetime="2019-02-14">{{ plan.startTime | vdatetime }}</time>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</aside>

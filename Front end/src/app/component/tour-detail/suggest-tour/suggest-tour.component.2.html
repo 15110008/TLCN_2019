@@ -1,0 +1,27 @@
+<div class="widget">
+    <h5 class="widget-title align-center">Lựa chọn khác</h5>
+    <div class="entry-box style-2 label-small3">
+        <!-- Entry post -->
+        <div class="entry" *ngFor="let plan of plans; let i = index">
+            <ng-container *ngIf="i < 4">
+                <div class="thumbnail-attachment">
+                    <a href="javascript:void(0)" [routerLink]="['/tours', plan.url + '-' +  plan.id]"
+                       class="overlink"></a>
+                    <img src="{{ plan.tour?.imageUrl }}" alt="">
+                </div>
+                <div class="entry-body">
+                    <a href="javascript:void(0)" class="entry-cat">{{ plan.adultPrice | vcurrency }}</a>
+                    <h6 class="entry-title">
+                        <a href="javascript:void(0)" [routerLink]="['/tours', plan.url + '-' +  plan.id]">
+                            {{ plan?.name}}
+                        </a></h6>
+                    <div class="entry-meta">
+                        <time class="entry-date" datetime="2019-02-14">
+                            {{ plan.tour?.numberOfDate }} ngày {{ plan.tour?.numberOfNight }} đêm
+                        </time>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

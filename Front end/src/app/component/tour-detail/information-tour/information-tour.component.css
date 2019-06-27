@@ -1,0 +1,22 @@
+p, div.product-price {
+    margin-bottom: 0.5em;
+}
+
+.border-only-right {
+    border-right: 1px solid #5e5e5e;
+}
+
+.aspect {
+    width: 100%;
+    padding-top: 50%; /* 1:1 Aspect Ratio */
+    position: relative; /* If you want text inside of it */
+    overflow: hidden;
+}
+
+.aspect img {
+    position: absolute;
+    top: -25%;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}

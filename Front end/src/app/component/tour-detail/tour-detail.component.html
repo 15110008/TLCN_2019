@@ -1,0 +1,71 @@
+<!-- - - - - - - - - - - - - - Wrapper - - - - - - - - - - - - - - - - -->
+<div id="wrapper" class="wrapper-container box-type" #wapper>
+
+    <!-- - - - - - - - - - - - - - Content - - - - - - - - - - - - - - - - -->
+    <div id="content" class="page-content-wrap">
+        <div class="container wide">
+            <div class="row col-no-space" style="transform: none;">
+                <!-- main side -->
+                <main class="col-lg-8">
+                    <div class="content-element2">
+                        <information-tour [plan]="plan"></information-tour>
+                    </div>
+
+                    <!--summary & booking tour-->
+                    <div class="content-element4">
+                        <ngb-tabset>
+                            <ngb-tab>
+                                <ng-template ngbTabTitle><span>TÓM TẮT</span></ng-template>
+                                <ng-template ngbTabContent>
+                                    <div class="pt-3" [@slideOut]="'out'">
+                                        <pre>{{ plan?.tour?.description }}</pre>
+                                    </div>
+                                </ng-template>
+                            </ngb-tab>
+                            <ngb-tab>
+                                <ng-template ngbTabTitle><span>MAP</span></ng-template>
+                                <ng-template ngbTabContent>
+                                    <div class="pt-3" [@slideOut]="'out'">
+                                        <agm-map #vmap [zoomControl]="false" [fullscreenControl]="true"
+                                                 [fitBounds]="plan.places.length > 1" [disableDoubleClickZoom]="false"
+                                                 [streetViewControl]="false" [usePanning]="false"
+                                                 [latitude]="defaultCenter.lat"
+                                                 [longitude]="defaultCenter.lng">
+                                            <agm-marker (markerClick)="clickPlaceMarker(place)"
+                                                        [agmFitBounds]="plan.places.length > 1"
+                                                        *ngFor="let place of plan?.places" [latitude]="place.latitude"
+                                                        [longitude]="place.longitude"></agm-marker>
+                                        </agm-map>
+                                    </div>
+                                </ng-template>
+                            </ngb-tab>
+                        </ngb-tabset>
+                    </div>
+
+                    <!--description tour-->
+                    <div class="content-element8" id="summary-tour">
+                        <h2 class="tour-summary">CHƯƠNG TRÌNH TOUR</h2>
+                        <hr class="item-divider">
+                        <description-tour [contentHTML]="contentHTML"></description-tour>
+                    </div>
+                    <!--<hr class="item-divider"/>-->
+                    <!--related tours-->
+                    <!--<div class="pb-4" *ngIf="relatedPlans.length > 0">-->
+                    <!--<h2 class="align-center">Related Products</h2>-->
+                    <!--<suggest-tour [tours]="relatedPlans"></suggest-tour>-->
+                    <!--</div>-->
+                </main>
+                <!-- right side -->
+                <aside class="col-lg-4 sbr border-left">
+                    <div class="content-element border p-4">
+                        <booking-tour [plan]="plan" [quantity]="quantity"></booking-tour>
+                    </div>
+                    <suggest-tour [tours]="relatedPlans"></suggest-tour>
+                </aside>
+               
+            </div>
+        </div>
+
+        <!-- - - - - - - - - - - - - - Footer - - - - - - - - - - - - - - - - -->
+    </div>
+</div>

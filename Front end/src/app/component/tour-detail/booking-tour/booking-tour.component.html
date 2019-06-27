@@ -1,0 +1,90 @@
+<div class="row">
+    <div *ngIf="showBooking" class="col">
+        <table class="table table-borderless">
+            <tbody>
+            <tr class="title">
+                <td colspan="2">Người lớn (trên 12 tuổi)</td>
+            </tr>
+            <tr>
+                <td>{{ plan?.adultPrice | vcurrency }}</td>
+                <td>
+                    <div class="quantity">
+                        <input type="text" readonly [value]="quantity.adult">
+                        <button type="button" class="qty-plus" (click)="addQuantity(true)"><i class="licon-plus"></i>
+                        </button>
+                        <button type="button" class="qty-minus" [disabled]="disableQA" (click)="subQuantity(true)"><i
+                                class="licon-minus"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            <tr class="title">
+                <td colspan="2">Trẻ em (từ 2 đến 12 tuổi)</td>
+            </tr>
+            <tr>
+                <td>{{ plan?.childPrice | vcurrency }}</td>
+                <td>
+                    <div class="quantity">
+                        <input type="text" value="1" readonly [value]="quantity.child">
+                        <button type="button" class="qty-plus" (click)="addQuantity(false)"><i class="licon-plus"></i>
+                        </button>
+                        <button type="button" class="qty-minus" (click)="subQuantity(false)"><i class="licon-minus"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            <tr style="border-top: 1px solid #dee2e6">
+                <td><b>Tổng cộng</b></td>
+                <td>{{ total() | currency : 'VND' }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div>
+            <button (click)="addToCart()" class="btn btn-style-6 w-100 text-uppercase">Thêm vào giỏ hàng</button>
+        </div>
+    </div>
+
+    <div *ngIf="!showBooking && item != null" class="col">
+        <h6 class="title">Tour đã có trong <u><a href="javascript:void(0)" routerLink="/cart">giỏ hàng</a></u>
+        </h6>
+        <div class="row">
+            <div class="col text-left">{{ item?.noTicketAdult }} người lớn</div>
+            <div class="col text-right">{{ plan?.adultPrice | vcurrency}}x
+                {{ item?.noTicketAdult }}
+            </div>
+        </div>
+        <div class="row" *ngIf="item?.noTicketChild > 0">
+            <div class="col text-left">{{ item?.noTicketChild }} trẻ em</div>
+            <div class="col text-right">{{ plan?.childPrice | vcurrency}}x
+                {{ item?.noTicketChild }}
+            </div>
+        </div>
+        <hr>
+        <div class="row font-weight-bold pb-4">
+            <div class="col text-left">Tổng cộng</div>
+            <div class="col text-right">{{ item?.noTicketAdult*plan?.adultPrice +
+                item?.noTicketChild * plan?.childPrice| vcurrency}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="clearfix">
+                    <div class="float-left">
+                        <u>
+                            <a href="javascript:void(0);" class="text-uppercase"
+                               (click)="$event.preventDefault();rebooking()">đặt
+                                lại</a>
+                        </u>
+                    </div>
+                    <div class="float-right">
+                        <button routerLink="/checkout/{{ item?.id }}" class="btn btn-style-6 text-uppercase">
+                            Checkout ngay
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

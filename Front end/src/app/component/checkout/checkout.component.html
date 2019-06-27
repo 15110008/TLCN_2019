@@ -1,0 +1,226 @@
+<div id="wrapper" class="wrapper-container box-type">
+
+    <!-- - - - - - - - - - - - - end Breadcrumbs - - - - - - - - - - - - - - - -->
+    <!-- - - - - - - - - - - - - - Content - - - - - - - - - - - - - - - - -->
+    <div id="content" class="page-content-wrap">
+        <div class="container wide">
+            <div class="content-element7">
+                <div class="row">
+                    <div class="col-md-8 col-sm-12">
+                        <h4 class="title">Thông tin liên lạc</h4>
+                        <div class="contact-form style-2 pb-4">
+                            <div class="contact-item">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label class="required">Tên</label>
+                                        <input type="text">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="required">CMND/ Số thẻ căn cước</label>
+                                        <input type="text">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label class="required">Ngày Sinh</label>
+                                        <input type="text">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label class="required">Giới tính</label>
+                                        <input type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="title">Thông tin hành khách</h4>
+                        <ng-container *ngFor="let d of booking.details, let i = index">
+                            <h6 class="title">Hành khách #{{ i + 1}} -
+                                <span *ngIf="d.ticketType == 'ADULT'">Người lớn</span>
+                                <span *ngIf="d.ticketType == 'CHILD'">Trẻ em</span>
+                            </h6>
+                            <div class="contact-form style-2 pb-4">
+                                <div class="contact-item">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label class="required">Tên</label>
+                                            <input type="text" [(ngModel)]="d.fullName">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="required">CMND/ Số thẻ căn cước</label>
+                                            <input type="text" [(ngModel)]="d.identification">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label class="required">Ngày Sinh</label>
+                                            <input type="text" [(ngModel)]="d.birthDate">
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="required">Giới tính</label>
+                                            <!--<select [(ngModel)]="d.gender">-->
+                                            <!--<option value="true">Nam</option>-->
+                                            <!--<option value="false">Nữ</option>-->
+                                            <!--</select>-->
+                                            <div class="input-wrapper">
+                                                <input id="male-{{d.id}}" name="gender-{{d.id}}" [(ngModel)]="d.gender"
+                                                       type="radio" [value]="true">
+                                                <label for="male-{{d.id}}">Nam</label>
+                                                <input id="female-{{d.id}}" name="gender-{{d.id}}"
+                                                       [(ngModel)]="d.gender" type="radio" [value]="false">
+                                                <label for="female-{{d.id}}">Nữ</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <h6 class="title">Thanh toán</h6>
+                        <div class="row">
+                            <div class="col text-left">{{ countTicket('ADULT') }} người lớn</div>
+                            <div class="col text-right">{{ booking?.plan?.adultPrice | vcurrency}}x
+                                {{ countTicket('ADULT') }}
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="countTicket('CHILD') > 0">
+                            <div class="col text-left">{{ countTicket('CHILD') }} trẻ em</div>
+                            <div class="col text-right">{{ booking?.plan?.childPrice | vcurrency}}x
+                                {{ countTicket('CHILD') }}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row font-weight-bold pb-4">
+                            <div class="col text-left">Tổng cộng</div>
+                            <div class="col text-right">{{ booking?.grandTotal | vcurrency}}</div>
+                        </div>
+
+                        <h6 class="title">Thông tin tour</h6>
+                        <div class="row">
+                            <div class="col"><img [src]="booking?.plan?.tour?.imageUrl" alt="" class="img-fluid"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <a href="javascript:void(0)"
+                                   [routerLink]="['/tours', booking?.plan?.url + '-' + booking?.plan?.id]">
+                                    {{ booking?.plan?.name }}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-left">Khởi hành</div>
+                            <div class="col text-right">{{ booking?.plan?.startTime | vdatetime }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-left">Thời gian</div>
+                            <div class="col text-right">
+                                {{ booking?.plan?.tour?.numberOfDate }} ngày
+                                {{ booking?.plan?.tour?.numberOfNight }} đềm
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="content-element3">-->
+            <!--<h4 class="title">Your Order</h4>-->
+            <!--<div class="content-element3">-->
+            <!--<div class="shop-cart-form order-type table-type-1">-->
+            <!--<table>-->
+            <!--<tr>-->
+            <!--<th class="product-col">Product</th>-->
+            <!--<th class="total-col">Total</th>-->
+            <!--</tr>-->
+            <!--<tr>-->
+            <!--<td data-title="Product">-->
+            <!--<div class="product">-->
+            <!--<div class="product-description">-->
+            <!--<h6 class="product-name"><a href="#">eBags Medium Packing Cubes - 3pc-->
+            <!--Set </a></h6>-->
+            <!--</div>&lt;!&ndash;/ .product-info &ndash;&gt;-->
+            <!--</div>-->
+            <!--</td>-->
+            <!--<td class="price total-price">$79.00</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+            <!--<td data-title="Product">-->
+            <!--<div class="product">-->
+            <!--<div class="product-description">-->
+            <!--<h6 class="product-name"><a href="#">Joby JB01390 GripTight GorillaPod Stand-->
+            <!--PRO</a></h6>-->
+            <!--</div>&lt;!&ndash;/ .product-info &ndash;&gt;-->
+            <!--</div>-->
+            <!--</td>-->
+            <!--<td class="price total-price">$39.00</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+            <!--<td class="order-total">-->
+            <!--<div>Cart subtotal</div>-->
+            <!--</td>-->
+            <!--<td class="price total-price">$118.00</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+            <!--<td class="order-total">-->
+            <!--<div>Shipping</div>-->
+            <!--</td>-->
+            <!--<td>-->
+            <!--<div class="input-wrapper">-->
+            <!--<input type="radio" checked="" name="radio-1" id="radio-1">-->
+            <!--<label for="radio-1">Free shipping</label>-->
+            <!--</div>-->
+            <!--<div class="input-wrapper">-->
+            <!--<input type="radio" name="radio-1" id="radio-2">-->
+            <!--<label for="radio-2">Flat shipping</label>-->
+            <!--</div>-->
+            <!--</td>-->
+            <!--</tr>-->
+            <!--<tr class="total">-->
+            <!--<td class="order-total">-->
+            <!--<div>Order Total:</div>-->
+            <!--</td>-->
+            <!--<td class="total-price">$118.00</td>-->
+            <!--</tr>-->
+            <!--</table>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="content-element3">-->
+            <!--<ul class="custom-list payment-option">-->
+            <!--<li>-->
+            <!--<div class="input-wrapper">-->
+            <!--<input type="radio" checked="" name="pm_payment_method" id="pm-cheque-payment" value="pm_cheque_payment">-->
+            <!--<label for="pm-cheque-payment">Checkout Payments</label>-->
+            <!--</div>&lt;!&ndash;/ .input-wrapper &ndash;&gt;-->
+            <!--<div class="payment-desc">-->
+            <!--<p>Please send a check to Store Name, Store Street, Store Town, Store State / County,-->
+            <!--Store-->
+            <!--Postcode.</p>-->
+            <!--</div>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<div class="input-wrapper">-->
+            <!--<input type="radio" name="pm_payment_method" id="pm-paypal" value="pm_paypal">-->
+            <!--<label for="pm-paypal">PayPal</label>-->
+            <!--<a href="#" class="link-text var2">What is PayPal?</a>-->
+            <!--</div>&lt;!&ndash;/ .input-wrapper &ndash;&gt;-->
+            <!--<div class="payment-desc">-->
+            <!--<img src="assets/images/paypal.png" alt="">-->
+            <!--</div>-->
+            <!--</li>-->
+            <!--<li>-->
+            <!--<div class="input-wrapper style-2">-->
+            <!--<input type="checkbox" id="checkbox2" class="type-2" name="checkbox2">-->
+            <!--<label for="checkbox2">I’ve read and accept the <a href="#" class="link-text required">Terms-->
+            <!--&amp; Conditions</a></label>-->
+            <!--</div>-->
+            <!--</li>-->
+            <!--</ul>-->
+            <!--</div>-->
+            <!--<a href="#" class="btn btn-style-3 btn-big">Place Order</a>-->
+            <!--</div>-->
+        </div>
+    </div>
+    <!-- - - - - - - - - - - - - end Content - - - - - - - - - - - - - - - -->
+</div><!-- - - - - - - - - - - - end Wrapper - - - - - - - - - - - - - - -->

@@ -1,0 +1,15 @@
+<div class="img-box style-2 bottom-content flex-row item-col-4">
+
+    <!-- image item -->
+    <div class="img-col" *ngFor="let place of places">
+        <div class="img-item">
+            <div class="img-wrap">
+                <a href="javascript:void(0)" [routerLink]="['/maps', place.url]" class="overlink"></a>
+                <img [src]="place.imageUrl" alt="{{ place.name }}">
+                <h4 class="img-title">
+                    <a href="javascript:void(0)" [routerLink]="['/maps', place.url]">{{ place.name }}</a>
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>

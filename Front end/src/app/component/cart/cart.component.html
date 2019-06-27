@@ -1,0 +1,130 @@
+<!-- - - - - - - - - - - - - - Wrapper - - - - - - - - - - - - - - - - -->
+<div id="wrapper" class="wrapper-container box-type">
+
+    <!-- - - - - - - - - - - - - - Content - - - - - - - - - - - - - - - - -->
+    <div id="content" class="page-content-wrap">
+        <div class="container wide">
+            <div class="content-element8">
+                <div class="shop-cart-form table-type-1 responsive-table">
+                    <table>
+                        <tbody>
+                        <ng-container *ngFor="let item of items">
+                            <tr>
+                                <td class="close-product shopping-cart-full" data-title="Tour" colspan="4">
+                                    <div class="product">
+                                        <a class="product-image" href="javascript:void(0)"
+                                           [routerLink]="['/tours', item.plan?.url + '-' +  item.plan?.id]">
+                                            <img src="{{ item.plan?.tour?.imageUrl }}" alt="">
+                                        </a>
+                                        <div class="product-description">
+                                            <h6 class="product-title">
+                                                <a href="javascript:void(0)"
+                                                   [routerLink]="['/tours', item.plan?.url + '-' +  item.plan?.id]">
+                                                    {{ item.plan?.name }}
+                                                </a>
+                                            </h6>
+                                            <small>Khởi hành: {{ item.plan?.startTime | vdatetime }}</small>
+                                        </div><!--/ .product-info -->
+                                    </div>
+                                </td>
+                                <td data-title="Thao tác">
+                                    <div class="action text-right">
+                                        <span><a href="javascript:void(0)" (click)="removeItemInCart(item.item)">Xóa</a></span>
+                                        <span><a href="javascript:void(0)" [routerLink]="['/checkout',  item.item.id]">Checkout</a></span>
+                                    </div>
+                                </td>
+                                <td data-title="Giá/ Số lượng">
+                                    <div class="text-right">
+                                        <ng-container *ngIf="item.item?.noTicketAdult > 0">
+                                            <span class="title adult">
+                                            {{ item.plan?.adultPrice | vcurrency }}x{{ item.item?.noTicketAdult }}
+                                            </span>
+                                        </ng-container>
+                                        <ng-container *ngIf="item.item?.noTicketChild > 0">
+                                            <span class="title child">
+                                            {{ item.plan?.childPrice | vcurrency }}x{{ item.item?.noTicketChild }}
+                                            </span>
+                                        </ng-container>
+                                    </div>
+                                </td>
+                            </tr>
+                        </ng-container>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="content-element8">
+                <!--<div class="row">-->
+                <!--<div class="col-lg-6 col-md-12">-->
+                <!--<h3>You May Be Interested In...</h3>-->
+                <!--<div class="products-holder item-col-2">-->
+                <!--<div class="product-col" *ngFor="let tour of tourHints">-->
+                <!--<div class="product">-->
+                <!--&lt;!&ndash; - - - - - - - - - - - - - Product Image - - - - - - - - - - - - - - - - &ndash;&gt;-->
+                <!--<figure class="product-image">-->
+                <!--<a href="#"><img src="{{ tour.image }}" alt=""></a>-->
+                <!--<a href="#" class="btn btn-style-3">Add To Cart</a>-->
+                <!--</figure>-->
+                <!--&lt;!&ndash; - - - - - - - - - - - - - End of Product Image - - - - - - - - - - - - - - - - &ndash;&gt;-->
+                <!--&lt;!&ndash; - - - - - - - - - - - - - Product Description - - - - - - - - - - - - - - - - &ndash;&gt;-->
+                <!--<div class="product-description">-->
+                <!--<h5 class="product-name"><a href="#">{{ tour.name }}</a></h5>-->
+                <!--<div class="pricing-area">-->
+                <!--<div class="product-price">-->
+                <!--{{ tour.price | vcurrency }}-->
+                <!--</div>-->
+                <!--<ul class="rating">-->
+                <!--<li><i class="licon-star"></i></li>-->
+                <!--<li><i class="licon-star"></i></li>-->
+                <!--<li><i class="licon-star"></i></li>-->
+                <!--<li><i class="licon-star"></i></li>-->
+                <!--<li><i class="licon-star"></i></li>-->
+                <!--</ul>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--&lt;!&ndash; - - - - - - - - - - - - - End of Product Description - - - - - - - - - - - - - - - - &ndash;&gt;-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-lg-6 col-md-12">-->
+                <!--<h3>Cart Totals</h3>-->
+                <!--<div class="table-type-2 content-element3">-->
+                <!--<table>-->
+                <!--<tbody>-->
+                <!--<tr>-->
+                <!--<th>Subtotal</th>-->
+                <!--<td class="total-price">{{ total | vcurrency }}</td>-->
+                <!--</tr>-->
+                <!--<tr>-->
+                <!--<th>Shipping</th>-->
+                <!--<td>-->
+                <!--<div class="content-element1">-->
+                <!--<div class="input-wrapper">-->
+                <!--<input type="radio" name="radio-1" checked="" id="radio-1">-->
+                <!--<label for="radio-1">Free shipping</label>-->
+                <!--</div>-->
+                <!--<div class="input-wrapper">-->
+                <!--<input type="radio" name="radio-1" id="radio-2">-->
+                <!--<label for="radio-2">Flat shipping</label>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<a href="#" class="link-text calc">Calculate Shipping</a>-->
+                <!--</td>-->
+                <!--</tr>-->
+                <!--<tr class="total">-->
+                <!--<th class="fw-medium">Total</th>-->
+                <!--<td class="total-price">{{ total | vcurrency }}</td>-->
+                <!--</tr>-->
+                <!--</tbody>-->
+                <!--</table>-->
+                <!--</div>-->
+                <!--<div class="align-right">-->
+                <!--<a href="checkout" class="btn btn-style-3 btn-big">Proceed to Checkout</a>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+    </div>
+</div><!-- - - - - - - - - - - - end Wrapper - - - - - - - - - - - - - - -->

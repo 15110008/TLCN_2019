@@ -1,0 +1,17 @@
+.items {
+    background: white;
+}
+
+.entry {
+    background: white;
+}
+
+.entry .thumbnail-attachment img {
+    max-width: 100%;
+    width: auto;
+    background: white;
+}
+
+.entry .entry-body {
+    background: white;
+}

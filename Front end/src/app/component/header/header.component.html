@@ -1,0 +1,154 @@
+<!-- - - - - - - - - - - - - Mobile Menu - - - - - - - - - - - - - - -->
+<nav id="mobile-advanced" class="mobile-advanced"></nav>
+
+<!-- - - - - - - - - - - - - - Header - - - - - - - - - - - - - - - - -->
+<header id="header" class="header sticky-header with-border px-4">
+    <!-- navigation sidebar -->
+    <div class="navbar-wrap">
+        <div class="rest-bg" [hidden]="!openNav" (click)="openNav = false"></div>
+        <div id="navbar-menu" style="width: 300px" class="navbar-menu" [ngClass]="openNav ? 'open-navbar': ''">
+            <div class="lang-area" *ngIf="profile != null">
+                <button class="btn btn-style-2" (click)="logout()">
+                    <i class="licon-chevron-left-circle"></i>
+                    Đăng xuất
+                </button>
+            </div>
+            <button type="button" id="navbar-close" class="nav-bttn close-bttn" (click)="openNav = false"></button>
+            <div class="nav-inner">
+                <div class="widget" *ngIf="profile == null">
+                    <h6 class="title">Đăng nhập</h6>
+                    <div style="position: relative">
+                        <div *ngIf="loading" class="loading-shade">
+                            <mat-spinner *ngIf="loading"></mat-spinner>
+                        </div>
+
+                        <span *ngIf="oauthError != null">{{ oauthError }}</span>
+                        <div class="p-2">
+                            <label class="required">Tài khoản</label><input [(ngModel)]="username" type="text">
+                        </div>
+                        <div class="p-2">
+                            <label class="required">Mật khẩu</label><input [(ngModel)]="password" type="text">
+                        </div>
+                        <div class="p-2 d-flex justify-content-center">
+                            <button class="btn btn-style-2" (click)="login()">Đăng nhập</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widget" *ngIf="profile != null">
+                    <h6 class="title"> {{ profile?.userName }} </h6>
+                    <small> {{ profile?.fullName }}</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- top-header -->
+    <div class="top-header">
+        <!-- logo -->
+        <div class="logo-wrap">
+            <a href="/" routerLink="/" class="logo"><img src="assets/images/logo.png" alt=""></a>
+        </div>
+        <!-- - - - - - - - - - - - / Mobile Menu - - - - - - - - - - - - - -->
+        <!--main menu-->
+        <div class="menu-holder">
+            <div class="menu-wrap">
+                <div class="nav-item">
+                    <!-- - - - - - - - - - - - - - Navigation - - - - - - - - - - - - - - - - -->
+                    <nav id="main-navigation" class="main-navigation">
+                        <ul id="menu" class="clearfix">
+                            <li routerLinkActive="current" [routerLinkActiveOptions]="{exact: true}">
+                                <a href="/" routerLink="/">Trang chủ</a>
+                            </li>
+                            <li routerLinkActive="current" [routerLinkActiveOptions]="{exact: true}">
+                                <a href="/maps" routerLink="/maps">Tìm tour</a>
+                            </li>
+                            <li>
+                                <a href="#best-tour" *ngIf="home == true">Tour tốt nhất</a>
+                                <a href="#best-tour" *ngIf="home == false" routerLink="/" fragment="best-tour">Tour tốt
+                                    nhất</a>
+                            </li>
+                            <li>
+                                <a href="#discount-tour" *ngIf="home == true">Tour giảm giá</a>
+                                <a href="#discount-tour" *ngIf="home == false" routerLink="/" fragment="discount-tour">Tour
+                                    giảm giá</a>
+                            </li>
+                            <!--<li><a href="#" (click)="view($event)">Bài viết</a></li>-->
+                        </ul>
+                    </nav>
+                    <!-- - - - - - - - - - - - - end Navigation - - - - - - - - - - - - - - - -->
+                </div>
+
+                <!-- header buttons -->
+                <div class="header-btns">
+                    <!-- Shop button -->
+                    <div class="head-btn">
+                        <div ngbDropdown class="d-inline-block dropdown-area" autoClose="outside"
+                             placement="bottom-right">
+                            <button ngbDropdownToggle class="sc-cart-btn" id="cartAreaDropdown">
+                                <span matBadge="{{ items.length }}" class="mat-badge-cart" matBadgeOverlap="false">
+                                </span>
+                            </button>
+                            <div ngbDropdownMenu aria-labelledby="cartAreaDropdown"
+                                 class="shopping-cart dropdown-window opened">
+                                <div class="products-holder">
+                                    <ng-container *ngFor="let item of items; let i = index">
+                                        <div class="product" *ngIf="i < 3">
+                                            <button class="item-close"
+                                                    (click)="$event.stopPropagation();removeItemInCart(item.item)"></button>
+                                            <a class="product-image" href="javascript:void(0)"
+                                               [routerLink]="['/tours',  item.plan?.url + '-' +   item.plan?.id]">
+                                                <img src="{{ item.plan?.tour?.imageUrl }}" alt="">
+                                            </a>
+                                            <div class="product-description">
+                                                <h6 class="product-title">
+                                                    <a rhref="javascript:void(0)"
+                                                       [routerLink]="['/tours',  item.plan?.url + '-' +   item.plan?.id]">
+                                                        {{ item.plan?.name }}</a>
+                                                </h6>
+                                                <span class="product-price">
+                                                    {{ ( item.item?.noTicketAdult * item.plan?.adultPrice +
+                                                    item.item?.noTicketChild * item.plan?.childPrice) | vcurrency }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+
+                                </div>
+                                <div class="sc-footer">
+                                    <div class="subtotal">Tổng cộng: <span class="total-price">{{ calTotal() | vcurrency }}</span>
+                                    </div>
+                                    <div class="btns-set">
+                                        <a href="/cart" routerLink="/cart"
+                                           class="btn btn-style-7 btn-small p-0 text-center">
+                                            Xem giỏ hàng</a>
+                                        <a href="/checkout" routerLink="/checkout"
+                                           class="btn btn-style-3 btn-small p-0 text-center">Checkout</a>
+                                    </div>/ .vr-btns-set
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- navbar button -->
+                    <div class="head-btn">
+                        <button type="button" class="navbar-toggle nav-bttn" (click)="openNav = true"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header><!-- - - - - - - - - - - - - end Header - - - - - - - - - - - - - - - -->
+
+<div class="slide-box" [hidden]="home || !showSlideBox">
+    <div id="owl-demo" class="owl-carousel">
+        <div class="owl-img" data-bg="assets/images/top-1.jpg"></div>
+        <div class="owl-img" data-bg="assets/images/top-2.jpg"></div>
+        <div class="owl-img" data-bg="assets/images/top-3.jpg"></div>
+        <div class="owl-img" data-bg="assets/images/top-4.jpg"></div>
+        <div class="owl-img" data-bg="assets/images/du-lich-phu-quoc.jpg"></div>
+    </div>
+    <div>
+        <h1 class="center-title title text-white">Du lịch Việt</h1>
+    </div>
+</div>

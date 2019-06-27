@@ -1,0 +1,19 @@
+<mat-card class="place-card">
+    <img [@slideInOut]="animationStateOfAvatar" class="card-image" mat-card-image alt="Photo of a Shiba Inu"
+         [src]="place.imageUrl">
+    <mat-card-header>
+        <mat-card-title>{{ place?.name }}</mat-card-title>
+        <mat-card-subtitle>{{ place?.parent?.name }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <p class="place-description" *ngIf="description != null && description.length > 0">
+            <span>{{ description | shortendText: 100 }}</span>
+        </p>
+    </mat-card-content>
+    <mat-card-actions>
+        <button (click)="moreTours($event)" mat-button mat-stroked-button color="primary">Hơn {{ place.countPlan }}
+            tour
+        </button>
+        <button mat-button>Khám phá</button>
+    </mat-card-actions>
+</mat-card>

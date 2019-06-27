@@ -1,0 +1,3 @@
+.place-description span:after {
+    content: '...';
+}

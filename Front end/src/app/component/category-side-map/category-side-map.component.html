@@ -1,0 +1,54 @@
+<div id="wrapper" class="wrapper-container box-type full-scr">
+
+    <!-- - - - - - - - - - - - - - Header - - - - - - - - - - - - - - - - -->
+
+    <div id="options" class="style-2">
+        <div class="title">{{ regionName }}</div>
+        <div class="sorting-col">
+            <div id="filters" class="isotope-nav justify-content-center">
+                <button class="is-checked" (click)="loadPlanWithPlaceUrl(''); regionName = 'Việt Nam';">Việt Nam
+                </button>
+                <!--<button (click)="filtering($event, '.category_2')">Tour</button>-->
+                <!--<button (click)="filtering($event, '.category_3')">Địa điểm</button>-->
+            </div>
+            <a href="javascript:void(0)" (click)="toggleMap($event);"
+                class="link-text text-size-small with-icon map-hide">
+                <i class="licon-map2"></i><span class="text-change">Ẩn</span> Map
+            </a>
+        </div>
+    </div>
+
+    <!-- - - - - - - - - - - - - - Content - - - - - - - - - - - - - - - - -->
+    <main id="main" class="home-page category">
+
+        <!-- main - maps -->
+        <div class="home-container">
+            <div class="carousel-type-1">
+                <div class="map-section" #vmapWapper>
+                    <!--<div class="vmap">-->
+                    <agm-map #vmap [zoom]="zoomLevel" [usePanning]="false" [latitude]="centerCoord.lat"
+                        disableDoubleClickZoom="false" [longitude]="centerCoord.lng">
+                        <agm-marker *ngFor="let place of places" #marker [latitude]="place.latitude"
+                            [longitude]="place.longitude" [title]="place.name">
+                            <agm-snazzy-info-window panControl="true" (beforeOpen)="showBoxPlace(place)" maxWidth="300"
+                                maxHeight="380" rotateControl="true" scaleControl="true" closeOnMapClick="true"
+                                closeWhenOthersOpen="true" [isOpen]="centerCoord.url == place.url">
+                                <ng-template>
+                                    <box-place (clickLeftButton)="toggleMap($event);"
+                                        [description]="centerCoord.description" [place]="place"
+                                        [stateOfAvatar]="animationStateOfAvatar"></box-place>
+                                </ng-template>
+                            </agm-snazzy-info-window>
+                        </agm-marker>
+
+                    </agm-map>
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+
+        <!-- left sidebar - tours -->
+        <tour-side-bar [tours]="plans"></tour-side-bar>
+    </main>
+    <!-- - - - - - - - - - - - - end Content - - - - - - - - - - - - - - - -->
+</div>
